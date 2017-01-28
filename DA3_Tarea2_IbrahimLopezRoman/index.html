@@ -1,0 +1,218 @@
+<!DOCTYPE >
+    <html>
+    <head>
+	    <title>lista de productos</title>
+	
+        <!-- JQuery-->
+	    <script type="text/javascript" src="jquery\dist\jquery.min.js"></script>
+	    <!-- Bootstrap/CSS-->
+	    <link rel="stylesheet" type="text/css" href="bootstrap\dist\css\bootstrap.min.css">
+	    <!-- Bootstrap/JS-->
+	    <script type="text/javascript" src="bootstrap\dist\js\bootstrap.min.js"></script>
+			
+		<style>
+				td i:hover{
+					color: red;
+				}
+				td i{
+					font-size: 1.5em;
+
+					transition: color .5s;
+
+					cursor: pointer;
+				}
+				body{
+
+			 background-color: black;
+		}
+		</style>
+
+
+    </head>
+    <body>
+    <div id="main"  class="form-group container">
+    <div  class="panel panel-primary">
+			<div class="panel-heading"></div>
+			<div class="panel-body">
+				<form id="frmProductos" action="">
+					
+					<div class="form-group col-md-6">
+						<label for='nombre' class="control-label">Producto:</label>
+						 <input name="nombreProducto" id="nombreProducto" class="form-control" type="text">
+						 <input name="id" id="id" class="form-control" type="hidden">
+					</div>
+
+					<div class="form-group col-md-6">
+						<label for='precio' class="control-label">Precio: </label>
+	                    <input name="precioProducto" id="precioProducto" class="form-control" type="text">
+					</div>
+					 <input  type="submit" name="btnAgregar" id="btnAgregar" class="btn btn-primary" value="Agregar" /> 
+					 <input  type="submit" name="btnEditar" id="btnEditar" class="btn btn-primary" value="Editar" /> 		 
+				</form>
+			</div>
+		</div>
+		</div>
+              
+	
+
+	    <!--Tabla de listado de productos-->
+	    <div class="form-group container">  
+		    <div onClick="ocultarMostrar()" class="panel panel-primary class">
+			    <div class="panel-heading">Listado de productos</div>
+				
+					    <div id="main" class="">
+					    <form action="" method="POST" id="frmTabla" accept-charset="utf-8">
+					    	<table id="tblProductos" class="table table-strippe">
+							    <tr id="cabecera">
+								    <th>Id</th>
+								    <th>Nombre</th>
+								    <th>Precio</th>
+							    </tr>
+						    </table>
+					    </form>
+						    
+					    </div>			
+		    </div>
+	    </div>
+	    <!---->
+    </body>
+
+    </html>
+    <script type="text/javascript">
+    		tomarDatosDeServidor();
+		    //tomarDatosDeServidor();
+		    $('#btnEditar').hide();
+		    
+		    function ocultarMostrar(){
+		    	$('#btnAgregar').show();
+		    	$('#btnEditar').hide();
+
+		    }
+
+		     $('#frmProductos').submit(function (e) {
+			    e.preventDefault();
+			    //Serializar la forma
+			    var nuevoProducto = $(this).serialize();
+
+			    $.ajax({
+
+				    url:'http://localhost:61994/productos/createProducto',
+				    type:'POST',
+				    dataType:'JSON', //El formato de lo que recibes
+				   // contentType:'JSON', //El formato de lo que envias
+				    data: nuevoProducto, //lo que se envia al server
+				    success:function(result, status,xhr){
+					    tomarDatosDeServidor();
+				    },
+				    error: function(xhr, status,error){
+					    alert("No funciono prro");
+				    },
+			    });
+
+		    });
+
+
+		   function tomarDatosDeServidor(){
+					//Limpiar la tabla
+					$('#tblProductos >').children().not('#cabecera').remove();
+
+					//Datos dummy
+					$.ajax({
+						url: 'http://localhost:61994/productos/getJsonList',
+						type: 'GET',
+						dataType:'JSON',
+						success: function(result,status,xhr){
+							//Si la conexion se realizo
+							productos = result;
+							//Se rellena la tabla con los productos
+							for (var i = 0; i < productos.length; i++) {
+								insertarRenglon(productos[i]);
+							}
+
+							
+						},
+						error: function(xhr,status,error){
+							alert('No esta disponible el servidor. :v');
+						},
+					});
+			}
+
+		    function insertarRenglon(producto){
+				var nuevoTR = $('<tr>')
+				.append($('<td>').html(producto.id))
+				.append($('<td>').html(producto.nombreProducto))
+				.append($('<td>').html('$'+producto.precioProducto))
+				.append($('<td>').html('<i  onClick="eliminar('+producto.id+')" class="glyphicon glyphicon-remove"></i>'))
+				.append($('<td>').html('<i onClick="editar('+producto.id+')" class="glyphicon glyphicon-pencil"></i>'));
+
+				$('#tblProductos').append(nuevoTR);
+
+			}
+
+		  function editar(id){
+		  	$.ajax({
+
+				    url:'http://localhost:61994/productos/editarProducto',
+				    type:'GET',
+				    dataType:'JSON', //El formato de lo que recibes
+				   // contentType:'JSON', //El formato de lo que envias
+				    data: {id:id}, //lo que se envia al server
+				    success:function(result, status,xhr){
+					    $('#nombreProducto').val(result.nombre);
+					    $('#precioProducto').val(result.precio);
+					    $('#id').val(result.id);
+					    $('#btnEditar').show();
+					    $('#btnAgregar').hide();
+
+				    },
+				    error: function(xhr, status,error){
+					    alert("valio amiguito :(");
+				    },
+			    });
+		  }
+
+		   function eliminar(id){
+		  	$.ajax({
+
+				    url:'http://localhost:61994/productos/eliminarProducto',
+				    type:'POST',
+				    dataType:'JSON', //El formato de lo que recibes
+				   // contentType:'JSON', //El formato de lo que envias
+				    data: {id:id}, //lo que se envia al server
+				    success:function(result, status,xhr){
+					    /*$('#nombreProducto').val(result.nombre);
+					    $('#precioProducto').val(result.precio);*/
+					    alert('Ya se elimino pariente');
+					    tomarDatosDeServidor();
+				    },
+				    error: function(xhr, status,error){
+					    alert("valio amiguito :(");
+				    },
+			    });
+		  }
+
+
+		  $('#btnEditar').click(function (e) {
+			    e.preventDefault();
+			    var productoEditado = $('#frmProductos').serialize();
+			    $.ajax({
+			    		url: 'http://localhost:61994/productos/editar',
+			    		type: 'POST',
+			    		dataType:'JSON',
+			    		data: productoEditado,
+			    		success: function (result, status, xhr) {
+			    			alert('Funciono prro');
+			    			tomarDatosDeServidor();
+			    			$('#btnAgregar').show();
+			    			$('#btnEditar').hide();
+			    		},
+			    		error: function(xhr, status, error){
+			    			alert('no se pudo :(');
+			    			$('#btnAgregar').show();
+			    			$('#btnEditar').hide();
+			    		}
+			    	});
+
+			});
+
+    </script>
