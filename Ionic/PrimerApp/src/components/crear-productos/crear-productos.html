@@ -16,13 +16,13 @@
 <ion-content padding>
   <h2>Crear producto</h2>
         <ion-list>
-          <ion-item>
+          <ion-item class="container">
             <h2>Nombre del producto:</h2>
-            <input class="form-control" type="text" name="producto.nombre" required [(ngModel)]='producto.nombreProducto'>            		
+            <ion-input aria-placeholder="Nombre producto"  type="text" name="producto.nombre" required [(ngModel)]='producto.nombreProducto'>            		</ion-input>  
           </ion-item>
-          <ion-item>
+          <ion-item class="container">
             <h2>Precio del producto:</h2>
-            <input ion-form-control type="text" name="producto.precio" required [(ngModel)]='producto.precioProducto'>      		
+            <ion-input aria-placeholder="Precio producto"  type="text" name="producto.precio" required [(ngModel)]='producto.precioProducto'>      		</ion-input>  
           </ion-item>
         </ion-list>
         <div class="container">
