@@ -1,0 +1,40 @@
+<h1>
+  Lista de Productos
+</h1>
+	<style>
+				th i:hover{
+					color: red;
+				}
+				th i{
+					font-size: 1.5em;
+
+					transition: color .5s;
+
+					cursor: pointer;
+				}
+		
+	</style>
+<body>
+<div id="Crear" onclick="Crear()" class="form-group container">
+	<div onclick="" class="panel panel-success class">
+		<div class="panel-heading">Listado de Productos</div>
+		<div id="main">				
+						<table id="tblProductos" class="table table-stripe">
+							<tr id="cabecera">
+								<th>ID</th>
+								<th>Nombre</th>
+								<th>Precio</th>
+						
+							</tr>
+							<tr *ngFor="let producto of productos" id="cabecera">
+								<th>{{producto.id}}</th>
+								<th>{{producto.nombreProducto}}</th>
+								<th>{{producto.precioProducto}}</th>
+								<th><i (click)='eliminarProducto(producto.id)' class="glyphicon glyphicon-remove"></i></th>								
+								<th><i  [routerLink]="['/editarProductos', {id:producto.id}]" class="glyphicon glyphicon-edit" href='editarProducto'></i></th>
+							</tr>
+						</table>							
+		</div>
+	</div>
+</div>	
+</body>

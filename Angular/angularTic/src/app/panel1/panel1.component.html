@@ -1,0 +1,19 @@
+<p>
+  panel1 works!
+</p>
+<p>esta es una prueva d evento<p>
+<span>click aki</span>
+
+<button (click)='lanzarAlerta()'>AQUI</button>
+
+<label for="">Contador de click:</label>
+
+<span>{{cont}}</span>
+<br>
+<label for="">tu valor:</label>
+
+
+<input type="text" [(ngModel)]='miValor' [class.inputInvalido]='esInputValido()' [disabled]='esInputValido()'>
+
+<h3>Texto Escrito:</h3>{{miValor}}
+

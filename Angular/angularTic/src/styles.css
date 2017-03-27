@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+app-panel1{
+	background-color: #5fc68e;
+	border: 1px solid black;
+	display: block;
+}
+
+app-panel2{
+	background: #40b2c4;
+	border: 1px solid black;
+	display: block;
+}
+
+.inputInvalido{
+	background-color: red;
+}
+.navbar{
+	background-color: #7ae896;
+}
+app-root{
+	background-color: grey;
+}

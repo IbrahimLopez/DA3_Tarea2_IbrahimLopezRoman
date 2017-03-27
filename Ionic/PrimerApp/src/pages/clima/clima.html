@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Clima</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+ <ion-list>
+ 	<button ion-item>
+ 		Puerto Peñasco
+ 	</button>
+ </ion-list>
+
+ <ion-list>
+	 <table>
+		 <tr>
+			 <th>
+				 	Temperatura
+			 </th>
+			 <th>
+				 Fecha
+			 </th>
+		 </tr>
+
+		 <tr>
+			 <th>
+				 <button ion-button full outline  *ngFor="let dia of pronostico">
+					 {{dia.temp.day}}
+				 </button> <br />
+			 </th>
+			 <th>
+				 <button ion-button full outline  *ngFor="let dia of pronostico">
+					 {{dia.fecha | date:"dd MM"}}
+				 </button> <br />
+			 </th>
+		 </tr>
+	 </table>
+ 	
+ </ion-list>
+</ion-content>
+

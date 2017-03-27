@@ -1,0 +1,32 @@
+<!--
+  Generated template for the CrearProductos component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Crear Productos</ion-title>
+		
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <h2>Crear producto</h2>
+        <ion-list>
+          <ion-item>
+            <h2>Nombre del producto:</h2>
+            <input class="form-control" type="text" name="producto.nombre" required [(ngModel)]='producto.nombreProducto'>            		
+          </ion-item>
+          <ion-item>
+            <h2>Precio del producto:</h2>
+            <input ion-form-control type="text" name="producto.precio" required [(ngModel)]='producto.precioProducto'>      		
+          </ion-item>
+        </ion-list>
+        <div class="container">
+          <button type="button" (click)='CrearProducto()' ion-button >Guardar</button>
+      </div>
+
+</ion-content>

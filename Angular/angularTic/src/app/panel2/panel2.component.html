@@ -1,0 +1,12 @@
+<p>
+  panel2 works!
+</p>
+<!--<ul>
+	<li *ngFor='let nombre of listNombres'>
+
+	{{nombre}}
+	</li>
+</ul>-->
+<select class="btn btn-primary" name="slListaNombres"  id="slListaNombres">
+	<option *ngFor="let nombre of listNombres" value="">{{nombre}}</option>
+</select>
