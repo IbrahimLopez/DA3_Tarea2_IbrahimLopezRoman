@@ -18,12 +18,12 @@
         <ion-list>
           <ion-item>
             <h2>Nombre del producto:</h2>
-            <input class="form-control" type="text" name="producto.nombreProducto" required [(ngModel)]='producto.nombreProducto'>
+            <ion-input class="form-control" type="text" name="producto.nombreProducto" required [(ngModel)]='producto.nombreProducto'></ion-input>
             <input type="hidden" name="id" id="id"  required [(ngModel)]='producto.id'>			
           </ion-item>
           <ion-item>
             <h2>Precio del producto:</h2>
-            <input ion-form-control type="text" name="producto.precioProducto" required [(ngModel)]='producto.precioProducto'>      		
+            <ion-input ion-form-control type="text" name="producto.precioProducto" required [(ngModel)]='producto.precioProducto'></ion-input>      		
           </ion-item>
         </ion-list>
         <div class="container">
